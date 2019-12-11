@@ -1,0 +1,190 @@
+import java.util.Scanner;
+
+public class UniExam {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Lutfen sayisal cevap anahtarini sirasiyla giriniz: ");
+		String WordSayisal = scan.nextLine();
+		System.out.println("Sayisal cvp anahtari: " + WordSayisal);
+		System.out.println("\nLutfen fen cevap anahtarini sirasiyla giriniz: ");
+		String WordFen = scan.next();
+		System.out.println("Fen cvp anahtari: " + WordFen);
+		System.out.println("\nLutfen turkce cevap anahtarini sirasiyla giriniz: ");
+		String WordTurkce = scan.next();
+		System.out.println("Turkce cvp anahtari: " + WordTurkce);
+		System.out.println("\nLutfen sosyal cevap anahtarini sirasiyla giriniz: ");
+		String WordSosyal = scan.next();
+		System.out.println("Sosyal cvp anahtari: " + WordSosyal);
+		System.out.println("\nKac ogrenci sinava girdi: ");
+		int OgrSayisi = scan.nextInt();
+		String[] OgrAdi = new String[OgrSayisi];
+		String[] GeciciOgrAdi = new String[OgrSayisi];
+		String[] SayisalOgrCvp = new String[OgrSayisi];
+		String[] FenOgrCvp = new String[OgrSayisi];
+		String[] TurkceOgrCvp = new String[OgrSayisi];
+		String[] SosyalOgrCvp = new String[OgrSayisi];
+		String[] OgrTercih1 = new String[OgrSayisi];
+		String[] OgrTercih2 = new String[OgrSayisi];
+		String[] OgrTercih3 = new String[OgrSayisi];
+		String[] OgrAtandi = new String[OgrSayisi];
+		double[] GeciciOgrToplamPuan = new double[OgrSayisi];
+		double[] OgrToplamPuan = new double[OgrSayisi];
+		String[] secenek = {"ZSA"};
+		int IzmKon = 1, IstKon = 1, AnkKon = 1;
+		int SNet = 0, FNet = 0, TNet = 0, SosNet = 0, bosluk = 0;
+		int FYanlis = 0, TYanlis = 0, SosYanlis = 0;
+		double netcvp = 0, Puan = 0, TopPuan = 0, SYanlis = 0;
+		for (int x = 0; x < OgrSayisi; x++) {
+			System.out.println(x + 1 + ". ogrencinin adini giriniz: ");
+			OgrAdi[x] = scan.next();
+			GeciciOgrAdi[x] = OgrAdi[x];
+			System.out.println(OgrAdi[x] + " adli ogrencinin sayisal cvp anahtarini sirasiyla giriniz:");
+			SayisalOgrCvp[x] = scan.next();
+			while(WordSayisal.length() != SayisalOgrCvp[x].length()) {
+				System.out.println("Lutfen " + WordSayisal.length() + " kadar uzunlukta cvp giriniz:");
+				SayisalOgrCvp[x] = scan.next();
+			}
+			System.out.println(OgrAdi[x] + " adli ogrencinin fen cvp anahtarini sirasiyla giriniz:");
+			FenOgrCvp[x] = scan.next();
+			while(WordFen.length() != FenOgrCvp[x].length()) {
+				System.out.println("Lutfen " + WordFen.length() + " kadar uzunlukta cvp giriniz:");
+				FenOgrCvp[x] = scan.next();
+			}
+			System.out.println(OgrAdi[x] + " adli ogrencinin turkce cvp anahtarini sirasiyla giriniz:");
+			TurkceOgrCvp[x] = scan.next();
+			while(WordTurkce.length() != TurkceOgrCvp[x].length()) {
+				System.out.println("Lutfen " + WordTurkce.length() + " kadar uzunlukta cvp giriniz:");
+				TurkceOgrCvp[x] = scan.next();
+			}
+			System.out.println(OgrAdi[x] + " adli ogrencinin sosyal cvp anahtarini sirasiyla giriniz:");
+			SosyalOgrCvp[x] = scan.next();
+			while(WordSosyal.length() != SosyalOgrCvp[x].length()) {
+				System.out.println("Lutfen " + WordSosyal.length() + " kadar uzunlukta cvp giriniz:");
+				SosyalOgrCvp[x] = scan.next();
+			}
+
+			for (int i = 0; i < WordSayisal.length(); i++) {
+				if (SayisalOgrCvp[x].charAt(i) == ' ') {
+					bosluk++;
+					continue;
+				} else if (SayisalOgrCvp[x].charAt(i) == WordSayisal.charAt(i)) {
+					SNet++;
+				} else {
+					SYanlis++;
+				}
+				netcvp = SNet - (SYanlis / 4);
+				Puan = netcvp * 4;
+			}
+			TopPuan = Puan;
+			System.out.println(OgrAdi[x] + " adli ogrencinin: \n Sayisal dogru cevabi: " + SNet + " \nSayisal puani: " + Puan);
+			System.out.println("Yanlis cevabi: " + SYanlis);
+			System.out.println("Bos biraktigi sorular: " + bosluk);
+			System.out.println("Net cevabi: " + netcvp);
+			bosluk = SNet = 0;
+			netcvp = Puan = SYanlis = 0;
+			for (int i = 0; i < WordFen.length(); i++) {
+				if (FenOgrCvp[x].charAt(i) == ' ') {
+					bosluk++;
+					continue;
+				} else if (FenOgrCvp[x].charAt(i) == WordFen.charAt(i)) {
+					FNet++;
+				} else {
+					FYanlis++;
+				}
+				netcvp = FNet - (FYanlis / 4);
+				Puan = netcvp * 3;
+			}
+			TopPuan = TopPuan + Puan;
+			System.out.println(OgrAdi[x] + " adli ogrencinin: \n Fen dogru cevabi: " + FNet + " \nFen puani: " + Puan);
+			System.out.println("Yanlis cevabi: " + FYanlis);
+			System.out.println("Bos biraktigi sorular: " + bosluk);
+			System.out.println("Net cevabi: " + netcvp);
+			bosluk = FNet = 0;
+			netcvp = Puan = FYanlis = 0;
+			for (int i = 0; i < WordTurkce.length(); i++) {
+				if (TurkceOgrCvp[x].charAt(i) == ' ') {
+					bosluk++;
+					continue;
+				} else if (TurkceOgrCvp[x].charAt(i) == WordTurkce.charAt(i)) {
+					TNet++;
+				} else {
+					TYanlis++;
+				}
+
+				netcvp = TNet - (TYanlis / 4);
+				Puan = netcvp * 2;
+			}
+			TopPuan = TopPuan + Puan;
+			System.out.println(" \n" + OgrAdi[x] + " adli ogrencinin: \n Turkce icin \n dogru cevabi: " + TNet
+					+ " \nTurkce puani: " + Puan);
+			System.out.println("Yanlis cevabi: " + TYanlis);
+			System.out.println("Bos biraktigi sorular: " + bosluk);
+			System.out.println("Net cevabi: " + netcvp);
+			bosluk = TNet = 0;
+			netcvp = Puan = TYanlis = 0;
+			for (int i = 0; i < WordSosyal.length(); i++) {
+				if (SosyalOgrCvp[x].charAt(i) == ' ') {
+					bosluk++;
+					continue;
+				} else if (SosyalOgrCvp[x].charAt(i) == WordSosyal.charAt(i)) {
+					SosNet++;
+				} else {
+					SosYanlis++;
+				}
+				netcvp = SosNet - (SosYanlis / 4);
+				Puan = netcvp * 1;
+			}
+			TopPuan = TopPuan + Puan;
+			System.out.println("\n" + OgrAdi[x] + " adli ogrencinin: \n Sosyal dogru cevabi: " + SosNet
+					+ " \nSosyal puani: " + Puan);
+			System.out.println("Yanlis cevabi: " + SosYanlis);
+			System.out.println("Bos biraktigi sorular: " + bosluk);
+			System.out.println("Net cevabi: " + netcvp + "\n Tum branslarin toplam puani: " + TopPuan);
+			bosluk = SosNet = 0;
+			netcvp = Puan = SosYanlis = 0;
+			
+			OgrToplamPuan[x] = TopPuan;
+			GeciciOgrToplamPuan[x] = TopPuan;
+			TopPuan = 0;
+		}
+		for(int i=0; i<OgrSayisi; i++) {
+			double key = GeciciOgrToplamPuan[i];
+			String key1 = GeciciOgrAdi[i];
+			int j = i-1, k = i-1;
+			while(j>=0 && GeciciOgrToplamPuan[j]>key) {
+				GeciciOgrToplamPuan[j+1] = GeciciOgrToplamPuan[j];
+				j = j-1;
+				GeciciOgrAdi[k+1] = GeciciOgrAdi[k];
+				k = k-1;
+			}
+			GeciciOgrToplamPuan[j+1] = key;
+			GeciciOgrAdi[k+1] = key1;
+		}
+		for(int i=OgrSayisi-1; i>=0; i--) {
+			System.out.println(GeciciOgrAdi[i] + " lutfen tercihlerinizde Izmir icin IZM veya Istanbul icin IST veya Ankara icin ANK girmelisiniz\n kucuk karakter yada yanlis girmeniz durumunda yerlestirmeniz basarisiz olacaktir.\n 1. Tercihinizi giriniz:");
+			OgrTercih1[i] = scan.next();
+			System.out.println("2. Tercihinizi giriniz:");
+			OgrTercih2[i] = scan.next();
+			System.out.println("3. Tercihinizi giriniz:");
+			OgrTercih3[i] = scan.next();
+		}
+		for(int i=OgrSayisi-1; i>=0; i--) {
+			if(OgrTercih1[i].charAt(1) == secenek[0].charAt(0) && IzmKon != 0) {
+				OgrAtandi[i] = "Izmir'e atandiniz.";
+				IzmKon--;
+			}else if(OgrTercih2[i].charAt(1) == secenek[0].charAt(1) && IstKon != 0) {
+				OgrAtandi[i] = "Istanbul'a atandiniz.";
+				IstKon--;
+			}else if(OgrTercih3[i].charAt(0) == secenek[0].charAt(2) && AnkKon != 0) {
+				OgrAtandi[i] = "Angaraya atandiniz.";
+				AnkKon--;
+			}else {
+				OgrAtandi[i] = "Atanamadiz. Seneye tekrar deneyiniz.";
+			}
+			System.out.println(GeciciOgrAdi[i] + ":" + OgrAtandi[i]);
+		}
+		scan.close();
+	}
+
+}
